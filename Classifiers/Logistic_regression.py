@@ -37,33 +37,7 @@ class LogisticRegression:
          regression=np.dot(x,self.w.T) 
          y_hat=self.sigmoid(regression)
          return y_hat
-    # def predict(self, x):
-
-    #     x = np.array(x)
-    #     # Force input into 2D shape
-    #     if x.ndim == 0:
-    #         x = x.reshape(1, 1)
-    #     elif x.ndim == 1:
-    #         x = x.reshape(-1, 1)
-
-    #     # Insert bias term
-    #     x = np.insert(x, 0, 1, axis=1)
-
-    #     regression = np.dot(x, self.w.T)
-    #     y_hat = self.sigmoid(regression)
-    #     return y_hat
 
     
 
-x=list(range(1,21))
-y=[rem%2 for rem in x]
-# lr=LogisticRegression(epoch=1000)
-# lr.fit(x,y)
-# # pred=[int(i) for i in lr.predict(5)]
-# print(lr.predict([8,4,5,6]))
-plt.scatter(x, y)
-plt.title("Your Data")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-plt.show()
+
