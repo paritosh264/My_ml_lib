@@ -19,16 +19,25 @@ class PolynomialLr:
     def fit(self,x,y):
         x=np.array(x)
         y=np.array(y)
-        self.mean=np.mean(x,axis=0)
-        self.std=np.std(x,axis=0)+1e-8
-        x=(x-self.mean)/self.std
-        x=self.degree(x)
-        samples,features=x.shape
-        self.weights=np.ones(features)
-        for _ in range(self.epoch):
-            y_hat= np.dot(x,self.weights)
-            dl_dw=-2/samples*np.dot(x.T,(y-y_hat))
-            self.weights-=self.lr*dl_dw
+        if x.ndim<2:
+            x=x.reshape(-1,1)
+        if self.grd:
+        
+                self.mean=np.mean(x,axis=0)
+                self.std=np.std(x,axis=0)+1e-8
+                x=(x-self.mean)/self.std
+                x=self.degree(x)
+                samples,features=x.shape
+                self.weights=np.ones(features)
+                for _ in range(self.epoch):
+                    y_hat= np.dot(x,self.weights)
+                    dl_dw=-2/samples*np.dot(x.T,(y-y_hat))
+                    self.weights-=self.lr*dl_dw
+        else:
+                 x=self.degree(x)
+                 self.weights=np.linalg.inv(x.T@x)@x.T@y
+
+        
 
 
     
