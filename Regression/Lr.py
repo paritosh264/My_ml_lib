@@ -7,21 +7,23 @@ class Linear_reg:
         self.loss=[] #this is just to store the losses fr plotiing , it could be ignored...
         
 
-    def fit(self,x,y):
+    def fit(self,x,y,gd=True):
         x=np.array(x)
         y=np.array(y)
         n=len(x)
         self.weight=np.zeros(x.shape[1]) # creating the weights vector for number of features 
         self.bias=0.0 #bias could be scalar
-        
-        for _ in range (self.epoch):
-            y_hat=np.dot(x,self.weight)+self.bias # y_hat is the prediction for every sample
-            dw=-2/n*np.dot(x.T,(y-y_hat)) # here mean squared error is used for calculating the error , although we only need the derivative
-            db=-2/n*np.sum(y-y_hat)        # of the mse with respect to weights and biases , represented by dw and db here for gradient descent
-            self.weight-=self.lr*dw
-            self.bias-=self.lr*db
-            me=np.mean((y-y_hat)**2) # this is the mse (error) just for plotting its just optional
-            self.loss.append(me)
+        if gd:
+            for _ in range (self.epoch):
+                y_hat=np.dot(x,self.weight)+self.bias # y_hat is the prediction for every sample
+                dw=-2/n*np.dot(x.T,(y-y_hat)) # here mean squared error is used for calculating the error , although we only need the derivative
+                db=-2/n*np.sum(y-y_hat)        # of the mse with respect to weights and biases , represented by dw and db here for gradient descent
+                self.weight-=self.lr*dw
+                self.bias-=self.lr*db
+                me=np.mean((y-y_hat)**2) # this is the mse (error) just for plotting its just optional
+                self.loss.append(me)
+        else:
+                 self.weights=np.linalg.inv(x.T@x)@x.T@y
 
             
     def predict(self,x):
