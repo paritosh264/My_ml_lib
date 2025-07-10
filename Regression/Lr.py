@@ -23,7 +23,9 @@ class Linear_reg:
                 me=np.mean((y-y_hat)**2) # this is the mse (error) just for plotting its just optional
                 self.loss.append(me)
         else:
-                 self.weights=np.linalg.inv(x.T@x)@x.T@y
+            x_bias = np.insert(x, 0, 1, axis=1)
+            self.weight = np.linalg.inv(x_bias.T @ x_bias) @ x_bias.T @ y
+            self.bias = None
 
             
     def predict(self,x):
